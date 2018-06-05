@@ -25,6 +25,9 @@ export class BemgularDirective implements OnInit {
 
   @Input('bem')
   set storeElementAndModifiers(value: string) {
+    if (value === this._EMPTY_STRING) {
+      return;
+    }
     let split = value.split(',');
     let element: string = (!!split[0]) ? split[0].trim() : this._EMPTY_STRING;
     let elementModifiers: string[] = split.slice(1).map(modifier => modifier.trim());
@@ -32,24 +35,18 @@ export class BemgularDirective implements OnInit {
       this._block = this._parentBlock;
       this._modifiers = this._parentModifiers;
     }
-    if (this._block !== this._EMPTY_STRING) {
-      this._value = this.bemElement(this._block, this._modifiers, element, elementModifiers);
+    if (this._block === this._EMPTY_STRING) {
+      return
     }
-  }
-
-  ngOnInit() {
-    this._elRef.nativeElement.className = this._value.trim();
-  }
-
-  private bemElement(block, modifiers, element, elementModifiers) {
-    if (element === this._EMPTY_STRING) {
-      return '';
-    }
-    return this.bemBlockArray(block, modifiers).map(blockWithModifiers => {
+    this._value = this.bemBlockArray(this._block, this._modifiers).map(blockWithModifiers => {
       return this.bemBlockArray(element, elementModifiers).map(elementWithModifiers => {
         return blockWithModifiers + '__' + elementWithModifiers;
       }).join(' ');
     }).join(' ');
+  }
+
+  ngOnInit() {
+    this._elRef.nativeElement.className = this._value.trim();
   }
 
   private bemBlockArray(block: string, modifiers: string[]): string[] {
