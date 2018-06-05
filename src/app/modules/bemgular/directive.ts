@@ -19,7 +19,12 @@ export class BemgularDirective {
     private _elRef: ElementRef,
     private _injector: Injector
   ) {
-    this._internalConfig = (this._injector as ReflectiveInjector).parent.get(BemgularService).extend(this._config);
+    let parentInjector = (this._injector as ReflectiveInjector).parent;
+    if (!!parentInjector) {
+      this._internalConfig = parentInjector.get(BemgularService).extend(this._config);
+    } else {
+      this._internalConfig = this._service.extend(this._config);
+    }
     this._service.setConfig(this._internalConfig);
   }
 

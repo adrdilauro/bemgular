@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-    BemgularModule.forRoot(),
+    BemgularModule,
     RouterModule,
   ],
   exports: [
