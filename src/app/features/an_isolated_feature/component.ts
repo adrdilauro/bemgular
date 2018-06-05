@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BEMGULAR_BLOCK, BEMGULAR_MODIFIERS, BEMGULAR_FEATURE } from './../../modules/bemgular/tokens';
+import { BEMGULAR_BLOCK, BEMGULAR_MODIFIERS } from './../../modules/bemgular/tokens';
 
 @Component({
   selector: 'app-an-isolated-feature',
@@ -8,7 +8,6 @@ import { BEMGULAR_BLOCK, BEMGULAR_MODIFIERS, BEMGULAR_FEATURE } from './../../mo
   providers: [
     { provide: BEMGULAR_BLOCK, useValue: 'an-isolated-feature' },
     { provide: BEMGULAR_MODIFIERS, useValue: [] },
-    { provide: BEMGULAR_FEATURE, useValue: true },
   ],
 })
 export class AnIsolatedFeatureComponent {}
