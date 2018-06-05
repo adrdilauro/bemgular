@@ -1,6 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BemgularDirective } from './directive';
-import { BEMGULAR_BLOCK, BEMGULAR_MODIFIERS } from './tokens';
+import { BemgularService } from './service';
+import { BEMGULAR } from './token';
 
 @NgModule({
   declarations: [
@@ -15,8 +16,8 @@ export class BemgularModule {
     return {
       ngModule: BemgularModule,
       providers: [
-        { provide: BEMGULAR_BLOCK, useValue: 'block' },
-        { provide: BEMGULAR_MODIFIERS, useValue: [] }
+        BemgularService,
+        { provide: BEMGULAR, useValue: {} },
       ],
     }
   }
