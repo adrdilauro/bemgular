@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Inject, Input, OnInit } from '@angular/core';
-import { BEMGULAR_BLOCK_TOKEN, BEMGULAR_MODIFIERS_TOKEN } from './tokens';
+import { BEMGULAR_BLOCK, BEMGULAR_MODIFIERS } from './tokens';
 
 @Directive({
   selector: '[bem]'
@@ -10,8 +10,8 @@ export class BemgularDirective {
   private _value: string = '';
 
   constructor(
-    @Inject(BEMGULAR_BLOCK_TOKEN) block: string,
-    @Inject(BEMGULAR_MODIFIERS_TOKEN) blockModifiers: string[],
+    @Inject(BEMGULAR_BLOCK) block: string,
+    @Inject(BEMGULAR_MODIFIERS) blockModifiers: string[],
     private _elRef: ElementRef,
   ) {
     this._block = block;
