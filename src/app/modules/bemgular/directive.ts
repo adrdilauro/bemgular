@@ -1,21 +1,23 @@
 import { Directive, ElementRef, Inject, Input, OnInit } from '@angular/core';
-import { BemgularConfig } from './config';
-import { BEMGULAR_BLOCK, BEMGULAR_MODIFIERS } from './tokens';
+import { BemgularConfig, BemgularInternalConfig } from './config';
+import { BEMGULAR, BEMGULAR_INTERNAL } from './token';
 
 @Directive({
-  selector: '[bem]'
+  selector: '[bem]',
+  providers: {
+    { provide: BEMGULAR_INTERNAL, useValue: {} },
+  },
 })
 export class BemgularDirective {
-  private _block: string;
-  private _blockModifiers: string[];
+  private _config: BemgularInternalConfig;
   private _value: string = '';
 
   constructor(
-    @Inject(BEMGULAR) config: BemgularConfig,
+    @Inject(BemgularService) private service: BemgularService,
+    @Inject(BEMGULAR) private config: BemgularConfig,
     private _elRef: ElementRef,
   ) {
-    this._block = block;
-    this._blockModifiers = blockModifiers;
+    this._config = this.service.extend(this.config);
   }
 
   @Input('bem')

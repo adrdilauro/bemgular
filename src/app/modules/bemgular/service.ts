@@ -1,6 +1,3 @@
-import { Injectable, Inject } from '@angular/core';
-import { BemgularConfig, BemgularInternalConfig } from './config';
-
 @Injectable()
 export class BemgularService {
   private _stack: BemgularInternalConfig;
