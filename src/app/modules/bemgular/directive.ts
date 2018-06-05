@@ -27,7 +27,7 @@ export class BemgularDirective implements OnInit {
       modifiers = this._parentInjector.get(BEMGULAR_MODIFIERS, []);
     }
     if (block === this._EMPTY_STRING) {
-      return
+      return;
     }
     let split = value.split(',');
     let element: string = (!!split[0]) ? split[0].trim() : this._EMPTY_STRING;
