@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
         loadChildren: './lazy_loaded_one/module#LazyLoadedOneModule',
       },
       {
-        path: 'lazy-loaded-two',
+        path: '',
         loadChildren: './lazy_loaded_two/module#LazyLoadedTwoModule',
       },
     ])

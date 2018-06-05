@@ -4,11 +4,11 @@ import { LazyLoadedTwoVariationComponent } from './variation';
 
 export const LazyLoadedTwoRouting = RouterModule.forChild([
   {
-    path: 'standard',
-    component: LazyLoadedTwoStandardComponent,
-  },
-  {
     path: 'variation',
     component: LazyLoadedTwoVariationComponent,
+  },
+  {
+    path: '',
+    component: LazyLoadedTwoStandardComponent,
   },
 ]);

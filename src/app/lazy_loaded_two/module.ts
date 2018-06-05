@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { LazyLoadedTwoRouting } from './routing';
 import { LazyLoadedTwoStandardComponent } from './standard';
 import { LazyLoadedTwoVariationComponent } from './variation';
+import { SharedModule } from './../shared.module';
 import { BEMGULAR_BLOCK } from './../modules/bemgular/tokens';
 
 @NgModule({
   imports: [
     LazyLoadedTwoRouting,
+    SharedModule,
   ],
   declarations: [
     LazyLoadedTwoStandardComponent,
