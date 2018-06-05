@@ -19,10 +19,6 @@ export class BemgularDirective implements OnInit {
     if (value === this._EMPTY_STRING) {
       return;
     }
-    let split = value.split(',');
-    let element: string = (!!split[0]) ? split[0].trim() : this._EMPTY_STRING;
-    let elementModifiers: string[] = split.slice(1).map(modifier => modifier.trim());
-
     let block: string = this._injector.get(BEMGULAR_BLOCK, this._EMPTY_STRING);
     let modifiers: string[] = this._injector.get(BEMGULAR_MODIFIERS, []);
     let parentBlock: string = this._parentInjector.get(BEMGULAR_BLOCK, this._EMPTY_STRING);
@@ -33,6 +29,9 @@ export class BemgularDirective implements OnInit {
     if (block === this._EMPTY_STRING) {
       return
     }
+    let split = value.split(',');
+    let element: string = (!!split[0]) ? split[0].trim() : this._EMPTY_STRING;
+    let elementModifiers: string[] = split.slice(1).map(modifier => modifier.trim());
     this._value = this.bemBlockArray(block, modifiers).map(blockWithModifiers => {
       return this.bemBlockArray(element, elementModifiers).map(elementWithModifiers => {
         return blockWithModifiers + '__' + elementWithModifiers;
