@@ -7,3 +7,17 @@
 .lazy-loaded-two--variation__main {
   background-color: yellow;
 }
+
+.lazy-loaded-two__feature {
+  font-weight: bold;
+  float: left;
+}
+
+.lazy-loaded-two__feature--isolated {
+  border: 3px solid black;
+}
+
+.lazy-loaded-two__main .an-isolated-feature--variation,
+.lazy-loaded-two__main .a-feature--variation {
+  background-color: white;
+}

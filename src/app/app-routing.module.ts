@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forRoot([
       {
-        path: 'lazy-loaded-one',
+        path: 'one',
         loadChildren: './lazy_loaded_one/module#LazyLoadedOneModule',
       },
       {

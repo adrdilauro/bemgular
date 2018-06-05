@@ -10,3 +10,18 @@
 .lazy-loaded-one--new__main {
   background-color: red;
 }
+
+.lazy-loaded-one__feature {
+  font-weight: bold;
+  float: left;
+}
+
+.lazy-loaded-one__feature--isolated {
+  border: 3px solid black;
+}
+
+.lazy-loaded-one__main .an-isolated-feature--variation,
+.lazy-loaded-one__main .a-feature--variation {
+  background-color: white;
+}
+
