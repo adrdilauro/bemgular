@@ -6,7 +6,7 @@ import { BEMGULAR } from './../../modules/bemgular/token';
   templateUrl: './component.html',
   styleUrls: [ './component.css' ],
   providers: [
-    { provide: BEMGULAR, useValue: { block: 'an-isolated-feature', feature: true } },
+    { provide: BEMGULAR, useValue: { block: 'a-feature', feature: true } },
   ],
 })
 export class AFeatureComponent {}
