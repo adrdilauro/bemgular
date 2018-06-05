@@ -1,14 +1,14 @@
 import { RouterModule } from '@angular/router';
-import { LazyLoadedTwoEditComponent } from './edit';
-import { LazyLoadedTwoNewComponent } from './new';
+import { LazyLoadedTwoStandardComponent } from './standard';
+import { LazyLoadedTwoVariationComponent } from './variation';
 
 export const LazyLoadedTwoRouting = RouterModule.forChild([
   {
-    path: 'edit',
-    component: LazyLoadedTwoEditComponent,
+    path: 'standard',
+    component: LazyLoadedTwoStandardComponent,
   },
   {
-    path: 'new',
-    component: LazyLoadedTwoNewComponent,
+    path: 'variation',
+    component: LazyLoadedTwoVariationComponent,
   },
 ]);
