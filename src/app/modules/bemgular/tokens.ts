@@ -1,4 +1,4 @@
 import { InjectionToken } from '@angular/core';
 
-export const BEM_BLOCK_TOKEN = new InjectionToken<string>('BEM_BLOCK_TOKEN');
-export const BEM_MODIFIERS_TOKEN = new InjectionToken<string>('BEM_MODIFIERS_TOKEN');
+export const BEMGULAR_BLOCK_TOKEN = new InjectionToken<string>('BEMGULAR_BLOCK_TOKEN');
+export const BEMGULAR_MODIFIERS_TOKEN = new InjectionToken<string>('BEMGULAR_MODIFIERS_TOKEN');

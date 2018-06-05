@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
-import { LazyLoadedOneRouting } from './routing';
-import { LazyLoadedOneEditComponent } from './edit';
-import { LazyLoadedOneNewComponent } from './new';
-import { BEM_BLOCK_TOKEN } from './../modules/bemgular/tokens';
+import { LazyLoadedTwoRouting } from './routing';
+import { LazyLoadedTwoEditComponent } from './edit';
+import { LazyLoadedTwoNewComponent } from './new';
+import { BEMGULAR_BLOCK_TOKEN } from './../modules/bemgular/tokens';
 
 @NgModule({
   imports: [
-    LazyLoadedOneRouting,
+    LazyLoadedTwoRouting,
   ],
   declarations: [
-    LazyLoadedOneEditComponent,
-    LazyLoadedOneNewComponent,
+    LazyLoadedTwoEditComponent,
+    LazyLoadedTwoNewComponent,
   ],
   providers: [
-    { provide: BEM_BLOCK_TOKEN, useValue: 'lazy-loaded-one' },
+    { provide: BEMGULAR_BLOCK_TOKEN, useValue: 'lazy-loaded-two' },
   ],
 })
-export class LazyLoadedOneModule {}
+export class LazyLoadedTwoModule {}

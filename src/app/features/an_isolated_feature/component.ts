@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { BEM_BLOCK_TOKEN, BEM_MODIFIERS_TOKEN } from './../../services';
+import { BEMGULAR_BLOCK_TOKEN, BEMGULAR_MODIFIERS_TOKEN } from './../../services';
 
 @Component({
   selector: 'app-an-isolated-feature',
   templateUrl: './component.html',
   styleUrls: [ './component.scss' ],
   providers: [
-    { provide: BEM_BLOCK_TOKEN, useValue: 'an-isolated-feature' },
-    { provide: BEM_MODIFIERS_TOKEN, useValue: [] },
+    { provide: BEMGULAR_BLOCK_TOKEN, useValue: 'an-isolated-feature' },
+    { provide: BEMGULAR_MODIFIERS_TOKEN, useValue: [] },
   ],
 })
-export class AnIsolatedFeatureComponent {
-}
+export class AnIsolatedFeatureComponent {}
