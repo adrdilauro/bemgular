@@ -1,57 +1,55 @@
 import { Directive, ElementRef, Inject, Input, OnInit, Injector, SkipSelf } from '@angular/core';
-import { BemgularConfig, BemgularInternalConfig } from './config';
-import { BemgularService } from './service';
-import { BEMGULAR } from './token';
+import { BEMGULAR_BLOCK, BEMGULAR_MODIFIERS, BEMGULAR_FEATURE } from './tokens';
 
 @Directive({
   selector: '[bem]',
-  providers: [
-    BemgularService,
-  ],
 })
 export class BemgularDirective {
-  private _internalConfig: BemgularInternalConfig;
+  private _block: string;
+  private _modifiers: string[];
+  private _feature: boolean;
   private _value: string = '';
 
   constructor(
-    @Inject(BemgularService) private _service: BemgularService,
-    @Inject(BEMGULAR) private _config: BemgularConfig,
-    @SkipSelf() private _injector: Injector,
+    @Inject(Injector) private _injector: Injector,
+    @SkipSelf() private _parentInjector: Injector,
     private _elRef: ElementRef
   ) {
-    let parentService = this._injector.get(BemgularService, undefined);
-    if (!!parentService) {
-      this._internalConfig = parentService.extend(this._config);
-    } else {
-      let parentConfig = this._injector.get(BEMGULAR, undefined);
-      if (!!parentConfig) {
-        this._service.setConfig(this._service);
-      } else {
-      }
-
-      this._internalConfig = this._injector.get(BemgularService).extend(this._config);
-
-      this._internalConfig = this._service.extend(this._config);
-    }
-    this._service.setConfig(this._internalConfig);
+    this._block = this._injector.get(BEMGULAR_BLOCK, 'block');
+    this._modifiers = this._injector.get(BEMGULAR_MODIFIERS, []);
+    this._feature = this._injector.get(BEMGULAR_FEATURE, false);
   }
 
   @Input('bem')
   set storeElementAndModifiers(value: string) {
     let split = value.split(',');
-    let element: string = split[0];
-    let elementModifiers: string[] = split.slice(1).map(modifier => {
-      return modifier.trim();
-    });
-    this._value = this.bemBlockArray(this._internalConfig.block, this._internalConfig.modifiers).map(blockWithModifiers => {
-      return this.bemBlockArray(element, elementModifiers).map(elementWithModifiers => {
-        return blockWithModifiers + '__' + elementWithModifiers;
-      }).join(' ');
-    }).join(' ');
+    let element: string = (!!split[0]) ? split[0].trim() : 'block';
+    let elementModifiers: string[] = split.slice(1).map(modifier => modifier.trim());
+    if (this._feature) {
+      this._value = [
+        this.bemElement(
+          this._parentInjector.get(BEMGULAR_BLOCK, 'block'),
+          this._parentInjector.get(BEMGULAR_MODIFIERS, []),
+          element,
+          elementModifiers
+        ),
+        this.bemBlockArray(this._block, this._modifiers).join(' '),
+      ].join(' ')
+    } else {
+      this._value = this.bemElement(this._block, this._modifiers, element, elementModifiers);
+    }
   }
 
   ngOnInit() {
     this._elRef.nativeElement.className = this._value;
+  }
+
+  private bemElement(block, modifiers, element, elementModifiers) {
+    return this.bemBlockArray(block, modifiers).map(blockWithModifiers => {
+      return this.bemBlockArray(element, elementModifiers).map(elementWithModifiers => {
+        return blockWithModifiers + '__' + elementWithModifiers;
+      }).join(' ');
+    }).join(' ');
   }
 
   private bemBlockArray(block: string, modifiers: string[]): string[] {
