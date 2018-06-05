@@ -1,23 +1,26 @@
-import { Directive, ElementRef, Inject, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, Inject, Input, OnInit, Injector, ReflectiveInjector } from '@angular/core';
 import { BemgularConfig, BemgularInternalConfig } from './config';
-import { BEMGULAR, BEMGULAR_INTERNAL } from './token';
+import { BemgularService } from './service';
+import { BEMGULAR } from './token';
 
 @Directive({
   selector: '[bem]',
-  providers: {
-    { provide: BEMGULAR_INTERNAL, useValue: {} },
-  },
+  providers: [
+    BemgularService,
+  ],
 })
 export class BemgularDirective {
-  private _config: BemgularInternalConfig;
+  private _internalConfig: BemgularInternalConfig;
   private _value: string = '';
 
   constructor(
-    @Inject(BemgularService) private service: BemgularService,
-    @Inject(BEMGULAR) private config: BemgularConfig,
+    @Inject(BemgularService) private _service: BemgularService,
+    @Inject(BEMGULAR) private _config: BemgularConfig,
     private _elRef: ElementRef,
+    private _injector: Injector
   ) {
-    this._config = this.service.extend(this.config);
+    this._internalConfig = (this._injector as ReflectiveInjector).parent.get(BemgularService).extend(this._config);
+    this._service.setConfig(this._internalConfig);
   }
 
   @Input('bem')
@@ -27,7 +30,7 @@ export class BemgularDirective {
     let elementModifiers: string[] = split.slice(1).map(modifier => {
       return modifier.trim();
     });
-    this._value = this.bemBlockArray(this._block, this._blockModifiers).map(blockWithModifiers => {
+    this._value = this.bemBlockArray(this._internalConfig.block, this._internalConfig.modifiers).map(blockWithModifiers => {
       return this.bemBlockArray(element, elementModifiers).map(elementWithModifiers => {
         return blockWithModifiers + '__' + elementWithModifiers;
       }).join(' ');
