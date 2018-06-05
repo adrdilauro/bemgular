@@ -5,7 +5,7 @@ import { LazyLoadedOneNewComponent } from './new';
 import { AFeatureModule } from './../features';
 import { AnIsolatedFeatureModule } from './../features';
 import { SharedModule } from './../shared.module';
-import { BEMGULAR } from './../modules/bemgular/token';
+import { BEMGULAR_BLOCK } from './../modules/bemgular/tokens';
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { BEMGULAR } from './../modules/bemgular/token';
     LazyLoadedOneNewComponent,
   ],
   providers: [
-    { provide: BEMGULAR, useValue: { block: 'lazy-loaded-one' } },
+    { provide: BEMGULAR_BLOCK, useValue: 'lazy-loaded-one' },
   ],
 })
 export class LazyLoadedOneModule {}
