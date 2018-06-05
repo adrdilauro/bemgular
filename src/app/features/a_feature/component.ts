@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BEMGULAR_BLOCK } from './../../modules/bemgular/tokens';
+import { BEMGULAR } from './../../modules/bemgular/token';
 
 @Component({
   selector: 'app-a-feature',
   templateUrl: './component.html',
   styleUrls: [ './component.css' ],
   providers: [
-    { provide: BEMGULAR_BLOCK, useValue: 'a-feature' },
+    { provide: BEMGULAR, useValue: { block: 'an-isolated-feature', feature: true } },
   ],
 })
 export class AFeatureComponent {}

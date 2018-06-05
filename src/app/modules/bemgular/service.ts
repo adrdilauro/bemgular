@@ -27,8 +27,8 @@ export class BemgularService {
     let newStack: BemgularInternalConfig = {
       block: configExtension.block || this._internalConfig.block,
       modifiers: configExtension.modifiers || this._internalConfig.modifiers,
-      feature: (configExtension.feature !== undefined) ? configExtension.feature : this._internalConfig.feature,
-      isolated: (configExtension.isolated !== undefined) ? configExtension.isolated : this._internalConfig.isolated,
+      feature: (!!configExtension.feature),
+      isolated: (!!configExtension.isolated),
     };
     return newStack;
   }

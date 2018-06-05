@@ -5,7 +5,7 @@ import { LazyLoadedTwoVariationComponent } from './variation';
 import { AFeatureModule } from './../features';
 import { AnIsolatedFeatureModule } from './../features';
 import { SharedModule } from './../shared.module';
-import { BEMGULAR_BLOCK } from './../modules/bemgular/tokens';
+import { BEMGULAR } from './../modules/bemgular/token';
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { BEMGULAR_BLOCK } from './../modules/bemgular/tokens';
     LazyLoadedTwoVariationComponent,
   ],
   providers: [
-    { provide: BEMGULAR_BLOCK, useValue: 'lazy-loaded-two' },
+    { provide: BEMGULAR, useValue: { block: 'lazy-loaded-two' } },
   ],
 })
 export class LazyLoadedTwoModule {}

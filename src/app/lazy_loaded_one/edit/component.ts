@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { BEMGULAR_MODIFIERS } from './../../modules/bemgular/tokens';
+import { BEMGULAR } from './../../modules/bemgular/token';
 
 @Component({
   selector: 'app-lazy-loaded-one-edit',
   templateUrl: './component.html',
   styleUrls: [ './../styles.css' ],
   providers: [
-    { provide: BEMGULAR_MODIFIERS, useValue: [ 'edit' ] },
+    { provide: BEMGULAR, useValue: { modifiers: [ 'edit' ] } },
   ],
 })
 export class LazyLoadedOneEditComponent {}
