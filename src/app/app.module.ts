@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { BemgularModule } from './modules/bemgular/module';
 import { SharedModule } from './shared.module';
 import { CoreModule } from './core.module';
 

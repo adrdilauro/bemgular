@@ -4,7 +4,7 @@ import { BEMGULAR_BLOCK, BEMGULAR_MODIFIERS } from './tokens';
 @Directive({
   selector: '[bem]',
 })
-export class BemgularDirective {
+export class BemgularDirective implements OnInit {
   private _block: string;
   private _modifiers: string[];
   private _parentBlock: string;
@@ -16,9 +16,9 @@ export class BemgularDirective {
     @SkipSelf() private _parentInjector: Injector,
     private _elRef: ElementRef
   ) {
-    this._block = this._injector.get(BEMGULAR_BLOCK, 'block');
+    this._block = this._injector.get(BEMGULAR_BLOCK, '');
     this._modifiers = this._injector.get(BEMGULAR_MODIFIERS, []);
-    this._parentBlock = this._parentInjector.get(BEMGULAR_BLOCK, 'block');
+    this._parentBlock = this._parentInjector.get(BEMGULAR_BLOCK, '');
     this._parentModifiers = this._parentInjector.get(BEMGULAR_MODIFIERS, []);
   }
 
@@ -28,11 +28,15 @@ export class BemgularDirective {
     let element: string = (!!split[0]) ? split[0].trim() : 'block';
     let elementModifiers: string[] = split.slice(1).map(modifier => modifier.trim());
     if (this._block !== this._parentBlock) {
-      this._value = [
-        this.bemElement(this._parentBlock, this._parentModifiers, element, elementModifiers),
-        this.bemBlockArray(this._block, this._modifiers).join(' '),
-      ].join(' ')
-    } else {
+      let valueArray: string[] = [];
+      if (this._parentBlock !== '') {
+        valueArray.push(this.bemElement(this._parentBlock, this._parentModifiers, element, elementModifiers));
+      }
+      if (this._block !== '') {
+        valueArray.push(this.bemBlockArray(this._block, this._modifiers).join(' '));
+      }
+      this._value = valueArray.join(' ');
+    } else if (this._block !== '') {
       this._value = this.bemElement(this._block, this._modifiers, element, elementModifiers);
     }
   }
