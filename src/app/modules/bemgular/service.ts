@@ -28,12 +28,11 @@ export class BemgularService {
   }
 
   extend(configExtension: BemgularConfig): BemgularInternalConfig {
-    let newStack: BemgularInternalConfig = {
+    return {
       block: configExtension.block || this._internalConfig.block,
       modifiers: configExtension.modifiers || this._internalConfig.modifiers,
       feature: (!!configExtension.feature),
       isolated: (!!configExtension.isolated),
     };
-    return newStack;
   }
 }

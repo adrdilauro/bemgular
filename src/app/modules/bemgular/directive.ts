@@ -19,14 +19,17 @@ export class BemgularDirective {
     @SkipSelf() private _injector: Injector,
     private _elRef: ElementRef
   ) {
-    try {
+    let parentService = this._injector.get(BemgularService, undefined);
+    if (!!parentService) {
+      this._internalConfig = parentService.extend(this._config);
+    } else {
+      let parentConfig = this._injector.get(BEMGULAR, undefined);
+      if (!!parentConfig) {
+        this._service.setConfig(this._service);
+      } else {
+      }
+
       this._internalConfig = this._injector.get(BemgularService).extend(this._config);
-
-      console.log('ESISTE UN PARENT!');
-
-    } catch(error) {
-
-      console.log('niente parent');
 
       this._internalConfig = this._service.extend(this._config);
     }
