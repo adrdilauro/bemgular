@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Inject, Input, OnInit, Injector, ReflectiveInjector } from '@angular/core';
+import { Directive, ElementRef, Inject, Input, OnInit, Injector, SkipSelf } from '@angular/core';
 import { BemgularConfig, BemgularInternalConfig } from './config';
 import { BemgularService } from './service';
 import { BEMGULAR } from './token';
@@ -16,13 +16,18 @@ export class BemgularDirective {
   constructor(
     @Inject(BemgularService) private _service: BemgularService,
     @Inject(BEMGULAR) private _config: BemgularConfig,
-    private _elRef: ElementRef,
-    private _injector: Injector
+    @SkipSelf() private _injector: Injector,
+    private _elRef: ElementRef
   ) {
-    let parentInjector = (this._injector as ReflectiveInjector).parent;
-    if (!!parentInjector) {
-      this._internalConfig = parentInjector.get(BemgularService).extend(this._config);
-    } else {
+    try {
+      this._internalConfig = this._injector.get(BemgularService).extend(this._config);
+
+      console.log('ESISTE UN PARENT!');
+
+    } catch(error) {
+
+      console.log('niente parent');
+
       this._internalConfig = this._service.extend(this._config);
     }
     this._service.setConfig(this._internalConfig);

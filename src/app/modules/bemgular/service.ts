@@ -15,6 +15,10 @@ export class BemgularService {
   }
 
   setConfig(internalConfig: BemgularInternalConfig) {
+
+    console.log('SETTING CONFIG');
+    console.log(internalConfig);
+
     this._internalConfig = {
       block: internalConfig.block,
       modifiers: internalConfig.modifiers,
