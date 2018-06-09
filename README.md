@@ -69,6 +69,11 @@ becomes
 </div>
 ```
 
+### Bemgular operates in ngOnInit
+
+So it won't recalculate the classes at every single change detection tick. Performance win!
+
+
 ## How does it work?
 
 Bemgular takes advantage of Angular's **inheritance of injectors**: when you inject, in a lazy loaded module or in a component, one of the tokens

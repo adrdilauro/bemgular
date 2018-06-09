@@ -1,6 +1,6 @@
 {
   "name": "bemgular",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Easy and powerful BEM helper for Angular2+",
   "author": "Adriano di Lauro",
   "license": "MIT",
