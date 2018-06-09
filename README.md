@@ -1,6 +1,4 @@
-# BEMGULAR!
-
-![comic-explosion-bubble-1-1024x588](https://user-images.githubusercontent.com/1175837/41196426-d585266e-6c37-11e8-82a0-f6f7d40897b4.png)
+<img width="927" alt="screen shot 2018-06-09 at 22 55 21" src="https://user-images.githubusercontent.com/1175837/41196446-5103d7cc-6c38-11e8-828b-7f35264544f3.png">
 
 Lightweight, easy to use BEM helper.
 
