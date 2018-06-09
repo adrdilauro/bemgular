@@ -112,8 +112,66 @@ You can add as many elements modifiers as you want; just add them separated by c
 
 ## Angular's automatic CSS scoping is slow in rendering; stick to the safe solution, use Bemgular!
 
+This is how Angular converts your CSS to scope it
 
+```html
+<div _ng-content-xxx class="container">
+  <div _ng-content-xxx class="title">
+  </div>
+</div>
+```
 
+And this is how it would work with a flat, performing BEM class
+
+```html
+<div class="xxx__container">
+  <div class="xxx__title">
+  </div>
+</div>
+```
+
+Flat class are quite more performing than Angular's scoping via attributes. It's because of the way in which CSS is computed by the browser: it starts always from right to left, from more specific to less specific selector.
+
+So, when you style
+
+```css
+_ng-content-xxx.container {
+  background-color: white;
+}
+```
+
+The browser will first pick all elements that match the selector `.container`, and then filter out the ones that are not attached to a div containing the attribute `_ng-content-xxx`.
+
+You can measure the difference yourself: run the following ruby script, that generates two different HTML and CSS files
+
+```ruby
+def generate_htmls
+  angular_style_css = File.open('angular-stile.css', 'w')
+  bem_style_css = File.open('bem-style.css', 'w')
+  angular_style_html = File.open('angular-stile.html', 'w')
+  bem_style_html = File.open('bem-style.html', 'w')
+  (0...10000).to_a.each do |index|
+    randomised = (0...15).map { ('a'..'z').to_a[rand(26)] }.join
+    [ 1, 2, 3, 4, 5, 6 ].each do |sub_index|
+      angular_style_css.write "\nh1[#{randomised}].selector#{sub_index} {\n  background-color: rgb(#{rand(200)},#{rand(200)},#{rand(200)});\n  width: 100px;\n  height: 100px;\n  float: left; display: block\n}\n"
+      angular_style_html.write "<h1 #{randomised} class=\"selector#{sub_index}\">Content</h1>"
+      bem_style_css.write "\n.#{randomised}__#{sub_index} {\n  background-color: rgb(#{rand(200)},#{rand(200)},#{rand(200)});\n  width: 100px;\n height: 100px;\n  float: left; display: block\n}\n"
+      bem_style_html.write "<h1 class=\"#{randomised}__#{sub_index}\">Content</h1>"
+    end
+    puts index
+  end
+  angular_style_css.close
+  angular_style_html.close
+  bem_style_css.close
+  bem_style_html.close
+end
+```
+
+Now, open with a text editor the two HTML files, and require the corresponding CSS in it. Then, open both using your browser and you'll see the difference.
+
+The file `bem-style.html` takes 2-5 seconds to render. The file `angular-style.html` takes a couple of minutes instead.
+
+Of course, your application doesn't contain 10.000 elements that use the same class, but if you can improve performance it's better to do it, even for small details.
 
 
 
