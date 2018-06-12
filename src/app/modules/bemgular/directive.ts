@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Inject, Input, OnInit, Injector, SkipSelf } from '@angular/core';
+import { Directive, ElementRef, Inject, Input, OnInit, Injector, SkipSelf, Renderer2 } from '@angular/core';
 import { BEMGULAR_BLOCK, BEMGULAR_MODIFIERS } from './tokens';
 
 @Directive({
@@ -11,7 +11,8 @@ export class BemgularDirective implements OnInit {
   constructor(
     @Inject(Injector) private _injector: Injector,
     @SkipSelf() private _parentInjector: Injector,
-    private _elRef: ElementRef
+    private _elRef: ElementRef,
+    private _renderer: Renderer2
   ) {}
 
   @Input('bem')
@@ -40,7 +41,7 @@ export class BemgularDirective implements OnInit {
   }
 
   ngOnInit() {
-    this._elRef.nativeElement.className = this._value.trim();
+    this._renderer.addClass(this._elRef.nativeElement, this._value.trim());
   }
 
   private bemBlockArray(block: string, modifiers: string[]): string[] {
