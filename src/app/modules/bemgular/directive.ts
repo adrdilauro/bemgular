@@ -41,7 +41,8 @@ export class BemgularDirective implements OnInit {
   }
 
   ngOnInit() {
-    for (let singleClass of this._value.trim().split(' ')) {
+    let allClasses: string[] = this._value.trim().split(' ');
+    for (let singleClass of allClasses) {
       this._renderer.addClass(this._elRef.nativeElement, singleClass);
     }
   }
