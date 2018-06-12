@@ -74,6 +74,20 @@ becomes
 So it won't recalculate the classes at every single change detection tick. Performance win!
 
 
+### If you need to change classes dynamically, Bemgular interacts seamlessly with ngClass
+
+This won't work, because Bemgular fires only on `ngOnInit`.
+
+```html
+<div bem="element,{{specialModifier()}}">
+```
+
+This will work: `ngClass` and Bemgular interact without interfering with each other
+
+```html
+<div bem="element" [ngClass]="specialModifier()">
+```
+
 ## How does it work?
 
 Bemgular takes advantage of Angular's **inheritance of injectors**: when you inject, in a lazy loaded module or in a component, one of the tokens
