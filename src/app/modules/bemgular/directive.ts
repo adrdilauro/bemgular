@@ -41,7 +41,9 @@ export class BemgularDirective implements OnInit {
   }
 
   ngOnInit() {
-    this._renderer.addClass(this._elRef.nativeElement, this._value.trim());
+    for (let singleClass of this._value.trim().split(' ')) {
+      this._renderer.addClass(this._elRef.nativeElement, singleClass);
+    }
   }
 
   private bemBlockArray(block: string, modifiers: string[]): string[] {
